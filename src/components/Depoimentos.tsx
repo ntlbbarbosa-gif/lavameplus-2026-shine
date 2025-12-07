@@ -197,9 +197,6 @@ export function Depoimentos() {
                         </svg>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      {depoimentos[currentIndex].tempo}
-                    </p>
                   </div>
                 </motion.div>
               </div>
