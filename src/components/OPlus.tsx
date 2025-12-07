@@ -58,7 +58,7 @@ export function OPlus() {
                   transition={{ duration: 0.5, delay: 0.4 }}
                   className="text-xl text-muted-foreground mb-6"
                 >
-                  Pano de Higienização Premium
+                  Plano de Higienização Premium
                 </motion.p>
 
                 <motion.p
@@ -76,7 +76,7 @@ export function OPlus() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  href="https://wa.me/5521979511720?text=Quero saber mais sobre O PLUS!"
+                  href="https://wa.me/c/5521979511720"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-accent font-semibold group hover:gap-4 transition-all duration-300"
