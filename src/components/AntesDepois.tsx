@@ -6,27 +6,21 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const comparisons = [
   {
     id: 1,
-    antes:
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1470&auto=format&fit=crop&sat=-100&bri=-20",
-    depois:
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1470&auto=format&fit=crop",
-    titulo: "Sofá de Tecido",
-  },
-  {
-    id: 2,
-    antes:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1470&auto=format&fit=crop&sat=-100&bri=-20",
-    depois:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1470&auto=format&fit=crop",
+    imagem:
+      "https://res.cloudinary.com/di7wp3ajp/image/upload/v1765125140/lavagem-de-sofa-antes-e-depois_efa8pf.jpg",
     titulo: "Sofá Retrátil",
   },
   {
-    id: 3,
-    antes:
-      "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1470&auto=format&fit=crop&sat=-100&bri=-20",
-    depois:
-      "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1470&auto=format&fit=crop",
+    id: 2,
+    imagem:
+      "https://res.cloudinary.com/di7wp3ajp/image/upload/v1765125766/138e64b4c93cb1c16565888e19f0d311_wfjibl.jpg",
     titulo: "Colchão",
+  },
+  {
+    id: 3,
+    imagem:
+      "https://res.cloudinary.com/di7wp3ajp/image/upload/v1765143721/821564699132828_gtloyj.jpg",
+    titulo: "Banco de Carro",
   },
 ];
 
@@ -34,22 +28,15 @@ export function AntesDepois() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [sliderPosition, setSliderPosition] = useState(50);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % comparisons.length);
-    setSliderPosition(50);
   };
 
   const prevSlide = () => {
     setCurrentIndex(
       (prev) => (prev - 1 + comparisons.length) % comparisons.length
     );
-    setSliderPosition(50);
-  };
-
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSliderPosition(Number(e.target.value));
   };
 
   const current = comparisons[currentIndex];
@@ -76,12 +63,11 @@ export function AntesDepois() {
             <span className="text-gradient-coral">Depois</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Veja a transformação que fazemos em cada estofado. Arraste o
-            controle para comparar!
+            Veja a transformação que fazemos em cada estofado. Resultados reais dos nossos serviços!
           </p>
         </motion.div>
 
-        {/* Comparison Slider */}
+        {/* Image Carousel */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -89,65 +75,20 @@ export function AntesDepois() {
           className="max-w-4xl mx-auto"
         >
           <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-            {/* Before Image */}
+            {/* Image */}
             <div className="relative aspect-[16/10] overflow-hidden">
               <img
-                src={current.antes}
-                alt={`${current.titulo} - Antes`}
+                src={current.imagem}
+                alt={`${current.titulo} - Antes e Depois`}
                 className="absolute inset-0 w-full h-full object-cover"
               />
 
-              {/* After Image Overlay */}
-              <div
-                className="absolute inset-0 overflow-hidden"
-                style={{ width: `${sliderPosition}%` }}
-              >
-                <img
-                  src={current.depois}
-                  alt={`${current.titulo} - Depois`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{
-                    width: `${(100 / sliderPosition) * 100}%`,
-                    maxWidth: "none",
-                  }}
-                />
+              {/* Title */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-foreground/80 to-transparent">
+                <h3 className="text-xl font-bold text-background">
+                  {current.titulo}
+                </h3>
               </div>
-
-              {/* Slider Line */}
-              <div
-                className="absolute top-0 bottom-0 w-1 bg-accent shadow-lg z-20"
-                style={{ left: `${sliderPosition}%`, transform: "translateX(-50%)" }}
-              >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-accent flex items-center justify-center shadow-xl">
-                  <ChevronLeft className="w-4 h-4 text-accent-foreground absolute -left-0.5" />
-                  <ChevronRight className="w-4 h-4 text-accent-foreground absolute -right-0.5" />
-                </div>
-              </div>
-
-              {/* Labels */}
-              <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-foreground/80 text-background text-sm font-semibold">
-                Antes
-              </div>
-              <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
-                Depois
-              </div>
-
-              {/* Range Input */}
-              <input
-                type="range"
-                min="5"
-                max="95"
-                value={sliderPosition}
-                onChange={handleSliderChange}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30"
-              />
-            </div>
-
-            {/* Title */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-foreground/80 to-transparent">
-              <h3 className="text-xl font-bold text-background">
-                {current.titulo}
-              </h3>
             </div>
           </div>
 
@@ -156,6 +97,7 @@ export function AntesDepois() {
             <button
               onClick={prevSlide}
               className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+              aria-label="Foto anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -164,10 +106,8 @@ export function AntesDepois() {
               {comparisons.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => {
-                    setCurrentIndex(index);
-                    setSliderPosition(50);
-                  }}
+                  onClick={() => setCurrentIndex(index)}
+                  aria-label={`Ver foto ${index + 1}`}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentIndex
                       ? "bg-accent w-8"
@@ -180,6 +120,7 @@ export function AntesDepois() {
             <button
               onClick={nextSlide}
               className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+              aria-label="Próxima foto"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
