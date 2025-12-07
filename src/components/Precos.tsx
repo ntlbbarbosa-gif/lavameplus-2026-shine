@@ -207,7 +207,7 @@ export function Precos() {
           className="text-center mt-12"
         >
           <a
-            href="https://wa.me/5521979511720"
+            href="https://wa.me/5521979511720?text=Olá! Gostaria de solicitar um orçamento."
             target="_blank"
             rel="noopener noreferrer"
             className="btn-coral inline-flex items-center gap-2"

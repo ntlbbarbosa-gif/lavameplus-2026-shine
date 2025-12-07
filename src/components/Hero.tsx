@@ -94,7 +94,7 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <a
-                href="https://wa.me/5521979511720"
+                href="https://wa.me/5521979511720?text=Olá! Vim pelo site e gostaria de agendar uma limpeza."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-coral inline-flex items-center justify-center gap-2 text-lg"

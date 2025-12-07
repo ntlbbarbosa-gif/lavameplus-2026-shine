@@ -68,7 +68,7 @@ export function Header() {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <motion.a
-              href="https://wa.me/5521979511720"
+              href="https://wa.me/5521979511720?text=Olá! Quero agendar um serviço."
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -115,7 +115,7 @@ export function Header() {
                 </motion.a>
               ))}
               <a
-                href="https://wa.me/5521979511720"
+                href="https://wa.me/5521979511720?text=Olá! Quero agendar um serviço."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-coral text-center mt-2"
