@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Serviços", href: "#servicos" },
-  { label: "Preços", href: "#precos" },
-  { label: "Antes & Depois", href: "#antes-depois" },
-  { label: "Depoimentos", href: "#depoimentos" },
-  { label: "Contato", href: "#contato" },
+  { label: "Serviços", href: "/servicos" },
+  { label: "Preços", href: "/precos" },
+  { label: "Antes & Depois", href: "/galeria" },
+  { label: "Depoimentos", href: "/depoimentos" },
+  { label: "Contato", href: "/contato" },
 ];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,19 +24,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  useEffect(() => {
     setIsMobileMenuOpen(false);
-    
-    const targetId = href.replace('#', '');
-    const targetElement = document.getElementById(targetId);
-    
-    if (targetElement) {
-      setTimeout(() => {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
-  };
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <motion.header
@@ -50,7 +43,7 @@ export function Header() {
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group">
             <div className="relative">
               <div className="w-10 h-10 rounded-xl bg-gradient-coral flex items-center justify-center">
                 <span className="text-accent-foreground font-bold text-lg">L+</span>
@@ -60,23 +53,35 @@ export function Header() {
             <span className="text-xl font-bold text-foreground">
               LAVAME<span className="text-accent">PLUS</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.div
                 key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.4 }}
-                className="relative text-foreground/80 hover:text-foreground font-medium transition-colors duration-300 group"
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+                <Link
+                  to={item.href}
+                  className={`relative font-medium transition-colors duration-300 group ${
+                    location.pathname === item.href
+                      ? "text-accent"
+                      : "text-foreground/80 hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                      location.pathname === item.href
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              </motion.div>
             ))}
           </div>
 
@@ -117,17 +122,23 @@ export function Header() {
           >
             <div className="container-custom py-6 flex flex-col gap-4">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.label}
-                  href={item.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 * index }}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="text-foreground/80 hover:text-accent font-medium py-2 transition-colors"
                 >
-                  {item.label}
-                </motion.a>
+                  <Link
+                    to={item.href}
+                    className={`block font-medium py-2 transition-colors ${
+                      location.pathname === item.href
+                        ? "text-accent"
+                        : "text-foreground/80 hover:text-accent"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
               <a
                 href="https://wa.me/5521979511720?text=Olá! Quero agendar um serviço."

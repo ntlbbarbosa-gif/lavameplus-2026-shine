@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Clock, CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
@@ -109,9 +110,9 @@ export function Hero() {
                 <span>Agendar via WhatsApp</span>
                 <ArrowRight className="w-5 h-5" />
               </a>
-              <a href="#precos" className="btn-outline-blue inline-flex items-center justify-center gap-2">
+              <Link to="/precos" className="btn-outline-blue inline-flex items-center justify-center gap-2">
                 <span>Ver Preços</span>
-              </a>
+              </Link>
             </motion.div>
           </div>
 
