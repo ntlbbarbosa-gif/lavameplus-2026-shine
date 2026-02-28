@@ -1,170 +1,30 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Check, Sparkles, Gift } from "lucide-react";
+import { Sparkles, CreditCard, ArrowRight } from "lucide-react";
 
 const precos = [
-  {
-    nome: "Sofá Retrátil",
-    descricao: "Até 2,00m",
-    preco: "150",
-    destaque: true,
-    popular: true,
-  },
-  {
-    nome: "Colchão Casal",
-    descricao: "1 lado",
-    preco: "100",
-    destaque: false,
-    popular: false,
-  },
-  {
-    nome: "Poltrona",
-    descricao: "1 lugar",
-    preco: "80",
-    destaque: false,
-    popular: false,
-  },
-  {
-    nome: "Banco de Carro",
-    descricao: "Por banco",
-    preco: "100",
-    destaque: false,
-    popular: false,
-  },
-  {
-    nome: "Tapete",
-    descricao: "Por m²",
-    preco: "20",
-    destaque: false,
-    popular: false,
-  },
-  {
-    nome: "Puff",
-    descricao: "Brinde*",
-    preco: "Grátis",
-    destaque: false,
-    popular: false,
-    isGift: true,
-  },
+  { nome: "Sofá Pequeno", descricao: "Até 1,5m", preco: "120", popular: false },
+  { nome: "Sofá Retrátil", descricao: "Até 2,0m", preco: "150", popular: true },
+  { nome: "Sofá Grande", descricao: "Acima de 2,0m", preco: "180", popular: false },
+  { nome: "Sofá em L", descricao: "Até 3,5m", preco: "220", popular: false },
+  { nome: "Colchão Solteiro", descricao: "Cama de solteiro", preco: "100", popular: false },
+  { nome: "Colchão Casal", descricao: "Cama de casal", preco: "130", popular: false },
+  { nome: "Colchão Queen/King", descricao: "Cama queen/king", preco: "160", popular: false },
+  { nome: "Poltrona", descricao: "Unitária", preco: "80", popular: false },
+  { nome: "Cadeira Estofada", descricao: "Unitária", preco: "60", popular: false },
+  { nome: "Tapete", descricao: "Por m²", preco: "50", popular: false },
+  { nome: "Cortina", descricao: "Por m²", preco: "40", popular: false },
+  { nome: "Carro (Interior)", descricao: "Limpeza completa", preco: "200", popular: false },
+  { nome: "Impermeabilização", descricao: "Adicional (12 meses)", preco: "80", popular: false },
 ];
 
-function PriceCard({
-  item,
-  index,
-}: {
-  item: (typeof precos)[0];
-  index: number;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative group ${item.destaque ? "lg:-mt-4 lg:mb-4" : ""}`}
-    >
-      {item.popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-          <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg">
-            <Sparkles className="w-3 h-3" />
-            Mais Popular
-          </span>
-        </div>
-      )}
-
-      <div
-        className={`relative overflow-hidden rounded-2xl p-6 transition-all duration-500 h-full ${
-          item.destaque
-            ? "bg-gradient-to-br from-primary to-primary-dark text-primary-foreground shadow-xl scale-105"
-            : "bg-card border border-border hover:border-accent/50 hover:shadow-xl"
-        } ${item.isGift ? "border-accent/30 bg-accent/5" : ""}`}
-      >
-        {/* Shine effect for highlighted */}
-        {item.destaque && (
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-        )}
-
-        {item.isGift && (
-          <div className="absolute top-4 right-4">
-            <Gift className="w-6 h-6 text-accent" />
-          </div>
-        )}
-
-        <div className="relative z-10">
-          <h3
-            className={`text-xl font-bold mb-1 ${
-              item.destaque ? "text-primary-foreground" : "text-foreground"
-            }`}
-          >
-            {item.nome}
-          </h3>
-          <p
-            className={`text-sm mb-4 ${
-              item.destaque
-                ? "text-primary-foreground/80"
-                : "text-muted-foreground"
-            }`}
-          >
-            {item.descricao}
-          </p>
-
-          <div className="flex items-baseline gap-1">
-            {item.preco !== "Grátis" && (
-              <span
-                className={`text-sm ${
-                  item.destaque
-                    ? "text-primary-foreground/80"
-                    : "text-muted-foreground"
-                }`}
-              >
-                R$
-              </span>
-            )}
-            <span
-              className={`text-4xl font-bold ${
-                item.destaque
-                  ? "text-primary-foreground"
-                  : item.isGift
-                  ? "text-accent"
-                  : "text-foreground"
-              }`}
-            >
-              {item.preco}
-            </span>
-          </div>
-
-          {item.isGift && (
-            <p className="text-xs text-muted-foreground mt-2">
-              *Dependendo do serviço contratado
-            </p>
-          )}
-
-          {item.destaque && (
-            <div className="mt-4 pt-4 border-t border-primary-foreground/20">
-              <div className="flex items-center gap-2 text-sm text-primary-foreground/90">
-                <Check className="w-4 h-4" />
-                <span>Inclui higienização</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Hover glow effect */}
-        <div
-          className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
-            item.destaque
-              ? "shadow-[inset_0_0_30px_rgba(255,255,255,0.1)]"
-              : "shadow-[0_0_30px_hsl(var(--coral)/0.15)]"
-          }`}
-        />
-      </div>
-    </motion.div>
-  );
-}
+const pagamentos = [
+  "Cartão de crédito (à vista ou parcelado)",
+  "Débito",
+  "PIX",
+  "Dinheiro",
+];
 
 export function Precos() {
   const sectionRef = useRef(null);
@@ -178,7 +38,7 @@ export function Precos() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-4">
             Preços Acessíveis
@@ -190,21 +50,83 @@ export function Precos() {
             Valores justos com qualidade profissional garantida. Invista na
             saúde da sua família!
           </p>
+          <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-accent/10 text-accent font-semibold text-sm">
+            <CreditCard className="w-4 h-4" />
+            Parcelamos em até 5x sem juros
+          </div>
         </motion.div>
 
-        {/* Price Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          {precos.map((item, index) => (
-            <PriceCard key={item.nome} item={item} index={index} />
-          ))}
-        </div>
+        {/* Price Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="rounded-2xl border border-border overflow-hidden bg-card shadow-lg">
+            {/* Table Header */}
+            <div className="grid grid-cols-3 bg-primary text-primary-foreground p-4 font-semibold text-sm">
+              <span>Serviço</span>
+              <span className="text-center">Descrição</span>
+              <span className="text-right">Preço</span>
+            </div>
+
+            {/* Table Rows */}
+            {precos.map((item, index) => (
+              <motion.div
+                key={item.nome}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                className={`grid grid-cols-3 items-center p-4 border-b border-border/50 hover:bg-accent/5 transition-colors ${
+                  item.popular ? "bg-accent/5 relative" : ""
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-foreground text-sm">
+                    {item.nome}
+                  </span>
+                  {item.popular && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold uppercase">
+                      <Sparkles className="w-2.5 h-2.5" />
+                      Popular
+                    </span>
+                  )}
+                </div>
+                <span className="text-center text-muted-foreground text-sm">
+                  {item.descricao}
+                </span>
+                <div className="text-right">
+                  <span className="text-xs text-muted-foreground">A partir de </span>
+                  <span className="font-bold text-foreground">R${item.preco}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            *Valores sujeitos a alteração conforme avaliação prévia do estofado
+          </p>
+
+          {/* Payment Methods */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            {pagamentos.map((metodo) => (
+              <span
+                key={metodo}
+                className="px-3 py-1.5 rounded-full bg-secondary text-muted-foreground text-xs font-medium"
+              >
+                {metodo}
+              </span>
+            ))}
+          </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-12"
+          className="text-center mt-10"
         >
           <a
             href="https://wa.me/5521979511720?text=Olá! Gostaria de solicitar um orçamento."
@@ -213,6 +135,7 @@ export function Precos() {
             className="btn-coral inline-flex items-center gap-2"
           >
             <span>Solicitar Orçamento</span>
+            <ArrowRight className="w-5 h-5" />
           </a>
         </motion.div>
       </div>
