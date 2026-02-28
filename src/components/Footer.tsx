@@ -1,23 +1,21 @@
-import { motion } from "framer-motion";
 import { Instagram, MapPin, Phone, Mail, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer id="contato" className="bg-foreground text-background">
+    <footer className="bg-foreground text-background">
       <div className="container-custom py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 rounded-xl bg-gradient-coral flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg">
-                  L+
-                </span>
+                <span className="text-accent-foreground font-bold text-lg">L+</span>
               </div>
               <span className="text-xl font-bold">
                 LAVAME<span className="text-coral">PLUS</span>
               </span>
-            </a>
+            </Link>
             <p className="text-background/70 mb-6 max-w-md">
               Especialistas em limpeza a seco de estofados. Recuperamos o
               conforto e a higiene do seu lar com tecnologia profissional e
@@ -50,18 +48,19 @@ export function Footer() {
             <h4 className="font-bold mb-4">Links Rápidos</h4>
             <ul className="space-y-3">
               {[
-                { label: "Serviços", href: "#servicos" },
-                { label: "Preços", href: "#precos" },
-                { label: "Depoimentos", href: "#depoimentos" },
-                { label: "Benefícios", href: "#beneficios" },
+                { label: "Serviços", href: "/servicos" },
+                { label: "Preços", href: "/precos" },
+                { label: "Galeria", href: "/galeria" },
+                { label: "Depoimentos", href: "/depoimentos" },
+                { label: "Contato", href: "/contato" },
               ].map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-background/70 hover:text-accent transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -91,8 +90,7 @@ export function Footer() {
         <div className="border-t border-background/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-background/50 text-sm">
-              © {new Date().getFullYear()} LAVAMEPLUS. Todos os direitos
-              reservados.
+              © {new Date().getFullYear()} LAVAMEPLUS. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-4 text-background/50 text-sm">
               <a href="#" className="hover:text-accent transition-colors">
