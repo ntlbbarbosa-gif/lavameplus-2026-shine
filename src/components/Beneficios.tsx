@@ -8,6 +8,7 @@ import {
   Settings,
   ShieldCheck,
   Sparkles,
+  CheckCircle,
 } from "lucide-react";
 
 const beneficios = [
@@ -43,6 +44,13 @@ const beneficios = [
   },
 ];
 
+const selos = [
+  "Hipoalergênicos e Biodegradáveis",
+  "Seguro para Crianças e Pets",
+  "Sem Cheiro Químico Forte",
+  "Equipamentos Profissionais Certificados",
+];
+
 function BeneficioCard({
   item,
   index,
@@ -66,15 +74,12 @@ function BeneficioCard({
         transition={{ duration: 0.3 }}
         className="relative p-6 rounded-2xl bg-card border border-border hover:border-accent/50 hover:shadow-xl transition-all duration-500"
       >
-        {/* Icon */}
         <div className="relative mx-auto mb-4 w-16 h-16">
           <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center group-hover:from-accent/20 group-hover:to-primary/20 transition-colors duration-500">
             <item.icon className="w-8 h-8 text-primary group-hover:text-accent transition-colors duration-300" />
           </div>
         </div>
-
-        {/* Content */}
         <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-300">
           {item.titulo}
         </h3>
@@ -105,17 +110,42 @@ export function Beneficios() {
             Nossos <span className="text-gradient-coral">Diferenciais</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Qualidade, rapidez e compromisso com a sua satisfação em cada
-            serviço
+            Qualidade, rapidez e compromisso com a sua satisfação em cada serviço
           </p>
         </motion.div>
 
         {/* Benefits Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {beneficios.map((item, index) => (
             <BeneficioCard key={item.titulo} item={item} index={index} />
           ))}
         </div>
+
+        {/* ANVISA Certification Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="max-w-3xl mx-auto p-6 rounded-2xl bg-card border border-primary/20 shadow-md"
+        >
+          <div className="text-center mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm">
+              <ShieldCheck className="w-4 h-4" />
+              Produtos Certificados pela ANVISA
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {selos.map((selo) => (
+              <div
+                key={selo}
+                className="flex items-center gap-2 text-sm text-muted-foreground"
+              >
+                <CheckCircle className="w-4 h-4 text-primary shrink-0" />
+                <span>{selo}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
